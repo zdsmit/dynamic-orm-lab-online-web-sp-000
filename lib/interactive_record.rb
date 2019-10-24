@@ -44,10 +44,10 @@ class InteractiveRecord
     self.class.column_names.delete_if {|col| col == "id"}.join(", ")
   end
 
-  def find_by_name
+  def self.find_by_name
   end
 
-  def find_by
+  def self.find_by
   end
 
 end
