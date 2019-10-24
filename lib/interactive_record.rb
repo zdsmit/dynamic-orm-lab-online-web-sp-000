@@ -44,4 +44,16 @@ class InteractiveRecord
     self.class.column_names.delete_if {|col| col == "id"}.join(", ")
   end
 
+  def self.find_by_name(name)
+    sql = "SELECT * FROM #{table_name} WHERE name = ?"
+    DB[:conn].execute(sql, name)
+  end
+
+  def self.find_by(hash)
+    value = hash.values.first
+    formatted_value = value.class == Integer ? value : "'#{value}'"
+    sql = "SELECT * FROM #{table_name} WHERE #{hash.keys.first} = #{formatted_value}"
+    DB[:conn].execute(sql)
+  end
+
 end
