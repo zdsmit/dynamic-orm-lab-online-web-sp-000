@@ -49,7 +49,11 @@ class InteractiveRecord
     DB[:conn].execute(sql, name)
   end
 
-  def self.find_by
+  def self.find_by(hash)
+    value = hash.values.first
+    formatted_value = value.class == Integer ? value : "'#{value}'"
+    sql = "SELECT * FROM #{table_name} WHERE #{hash.keys.first} = #{formatted_value}"
+    DB[:conn].execute(sql)
   end
 
 end
